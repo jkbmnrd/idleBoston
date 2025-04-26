@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Idle Boston</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="game-container">
+        <main class="main-content">
+            <!-- Header -->
+            <header class="game-header">
+                <h1><i class="fas fa-landmark"></i> Idle City</h1>
+                <div class="quick-stats">
+                    <span class="cash-display"><span id="stat-usd">0.00</span></span>
+                        <i class="fas fa-money"></i> <span id="stat-income">$0.00/s</span>
+                    <span class="happiness-display">
+                        <i class="fas fa-heart"></i><span id="stat-happiness">10.00</span> / <span id="stat-happy-max">10.00</span></span>
+                    <span class="stats-display">
+                        <i class="fas fa-clock"></i> <span id="stat-timePlayed">00:00:00</span>
+                    </span>
+                </div>
+            </header>
+            <!-- Earn Income -->
+            <section class="collapsible-section" id="hustle-section">
+                <div class="section-header" onclick="toggleSection('hustle-section')">
+                    <h2><i class="fas fa-hand-holding-usd"></i> Earn Income</h2>
+                    <i class="fas fa-chevron-up"></i>
+                </div>
+                <div class="section-content">
+                    <button class="action-button" onclick="hustle()">
+                        <i class="fas fa-fist-raised"></i> Hustle
+                    </button>
+                    <button class="action-button" onclick="cheat()">
+                        <i class="fas fa-star"></i> Cheat
+                    </button>
+                    <p class="section-description"> Walk up to people on the street and peddle for cash. Some people give you money, some people will not.</p>
+                </div>
+            </section>
+            <!-- Workers -->
+            <section class="collapsible-section" id="workers-section">
+                <div class="section-header" onclick="toggleSection('workers-section')">
+                    <h2><i class="fas fa-briefcase"></i> Workers</h2>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="section-content">
+                    <div class="worker-card">
+                        <div class="worker-info">
+                            <h3><i class="fas fa-hand"></i> Beggars</h3>
+                            <p>Beggars will hustle on street corners for you</p>
+                            <div class="worker-stats">
+                                <span>Owned: <span id="Beggars">0</span></span>
+                                <span>Income: $<span id="BeggarsGenerating">0.25</span>/sec</span>
+                            </div>
+                        </div>
+                        <button class="hire-button" onclick="hireBeggar()">
+                            Hire ($<span id="BeggarsCost">10</span>)
+                        </button>
+                    </div>
+                    <div class="worker-card">
+                        <div class="worker-info">
+                            <h3><i class="fas fa-user-tie"></i> Office Drones</h3>
+                            <p>Work in downtown offices</p>
+                            <div class="worker-stats">
+                                <span>Owned: <span id="OfficeDrones">0</span></span>
+                                <span>Income: $<span id="OfficeDronesGenerating">25.00</span>/sec</span>
+                            </div>
+                        </div>
+                        <button class="hire-button" onclick="hireOffice()">
+                            Hire ($<span id="OfficeDronesCost">100</span>)
+                        </button>
+                    </div>
+                    <div class="worker-card">
+                        <div class="worker-info">
+                            <h3><i class="fas fa-hard-hat"></i> Factory Worker</h3>
+                            <p>Work in the factories</p>
+                            <div class="worker-stats">
+                                <span>Owned: <span id="FactoryWorker">0</span></span>
+                                <span>Income: $<span id="FactoryWorkerGenerating">100.00</span>/sec</span>
+                            </div>
+                        </div>
+                        <button class="hire-button" onclick="hireFactory()">
+                            Hire ($<span id="FactoryWorkerCost">1000</span>)
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <!-- Upgrades -->
+			<section class="collapsible-section" id="upgrades-section">
+				<div class="section-header" onclick="toggleSection('upgrades-section')">
+					<h2><i class="fas fa-level-up-alt"></i> Upgrades</h2>
+					<i class="fas fa-chevron-down"></i>
+				</div>
+				<div class="section-content">
+					<div class="upgrades-container" id="upgrades-container">
+						<!-- Upgrades will be inserted here automatically -->
+					</div>
+				</div>
+			</section>
+            <section class="collapsible-section" id="housing-section">
+				<div class="section-header" onclick="toggleSection('housing-section')">
+					<h2><i class="fas fa-house"></i> Housing</h2>
+					<i class="fas fa-chevron-down"></i>
+				</div>
+				<div class="section-content">
+					<div class="housing-container" id="housing-container">
+						<!-- Houses will be inserted here automatically -->
+					</div>
+				</div>
+            </section>
+            <!-- Footer -->
+            <section class="collapsible-section" id="version-section">
+                <div class="section-header" onclick="toggleSection('version-section')">
+                    <h2><i class="fas fa-compass-drafting"></i>Changelog</h2>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="section-content">
+                    <h3><span id="game-version">Current Version: v0.0.3</span></h3>
+                    <p> v0.0.3 Changelog:</p>
+                    <ul> 
+                        <li>Changed manual earning income, now earns a random value between a min and max.</li>
+                        <li>Changed worker income to be dyanmic with future prestige upgrades.</li>
+                        <li>Changed worker cost function to scale slower.</li>
+                        <li>Added housing tab.</li>
+                        <li>Added happiness statistic.</li>
+                    </ul>
+                    <p> v0.0.2 Changelog:</p>
+                    <ul>
+                        <li>Added office drones and factory workers.</li>
+                        <li>Added new upgrades for workers.</li>
+                        <li>Added changelog.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Sidebar with Stats and Save -->
+        <aside class="game-sidebar">
+            <div class="sidebar-section">
+                <h3><i class="fas fa-chart-line"></i> Stats</h3>
+                <div class="stat-item">
+                    <span class="stat-name">Total Clicks:</span>
+                    <span id="stat-totalClicks" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Hustled:</span>
+                    <span id="stat-totalEarned" class="stat-value">$0.00</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-coins"></i> Special Currencies</h3>
+                <div class="stat-item">
+                    <span class="stat-name">Euro:</span>
+                    <span id="stat-euro" class="stat-value">€0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Bitcoin:</span>
+                    <span id="stat-bitcoin" class="stat-value">₿0.000000</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h3><i class="fas fa-database"></i> Save Game</h3>
+                <div class="save-actions">
+                    <button class="save-button" onclick="saveGame()">
+                        <i class="fas fa-save"></i> Save
+                    </button>
+                    <button class="load-button" onclick="loadGame()">
+                        <i class="fas fa-folder-open"></i> Load
+                    </button>
+                </div>
+                <div class="save-actions">
+                    <button class="export-button" onclick="exportSave()">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                    <button class="import-button" onclick="importSave()">
+                        <i class="fas fa-file-import"></i> Import
+                    </button>
+                </div>
+                <div class="stat-item">
+                    <span id="last-saved" class="stat-value">Never</span>
+                </div>
+                <div id="load-status"></div>
+				<div class="danger-zone">
+					<button class="reset-button" onclick="confirmReset()">
+						<i class="fas fa-trash-alt"></i> Reset Game
+					</button>
+					<div id="reset-confirmation" style="display: none;">
+						<p>Are you sure? This cannot be undone!</p>
+						<button class="confirm-reset" onclick="resetGame()">Yes, Reset</button>
+						<button class="cancel-reset" onclick="cancelReset()">Cancel</button>
+					</div>
+				</div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts-->
+    <script src="js/GameMechanics/gameLoop.js" defer></script>
+    <script src="js/GameMechanics/updateUI.js" defer></script>
+    <script src="js/GameMechanics/formatNum.js" defer></script>
+    <script src="js/GameMechanics/updatePassiveIncome.js" defer></script>
+    <script src="js/GameMechanics/autoSave.js" defer></script>
+    <script src="js/GameMechanics/updateSidebar.js" defer></script>
+    <script src="js/GameMechanics/saveGame.js"></script>
+    <script src="js/GameMechanics/loadGame.js" defer></script>
+    <script src="js/GameMechanics/exportSave.js" defer></script>
+    <script src="js/GameMechanics/importSave.js" defer></script>
+    <script src="js/GameMechanics/validateSave.js" defer></script>
+    <script src="js/GameMechanics/updateLastSavedDisplay.js" defer></script>
+    <script src="js/hustle.js" defer></script>
+    <script src="js/cheat.js" defer></script>
+    <script src="js/Workers/hireBeggar.js" defer></script>
+    <script src="js/Workers/hireOffice.js" defer></script>
+    <script src="js/Workers/hireFactory.js" defer></script>
+	<script src="js/Upgrades/upgradesSystem.js" defer></script>
+	<script src="js/GameMechanics/resetGame.js" defer></script>
+    <script src="js/Upgrades/housingSystem.js" defer></script>
+    <script defer> //Main Page Required Content
+        let game = {
+            // Currency
+            money:{
+                USD: 10, //primary currency
+                Euro: 0, //special currency
+                Bitcoin: 0, //prestige currency
+                max: 1, //Max "Hustle" income
+                min: 0, //Min "Hustle" income
+                income: 0,
+                achievementMult: 1.00, //Multiplier for achievements
+            },
+            // Resources
+            resources: {
+                happiness: 10,
+                happinessMax: 10,
+                happinessGain: 0,
+            },
+            // Workers
+            workers: {
+                beggars: { 
+                    own: 0, 
+                    cost: 10, 
+                    initial: 10,
+                    generate: 0.25 },
+                officeDrone: { 
+					own: 0, 
+					cost: 100, 
+                    initial: 100,
+					generate: 25 },
+                factoryWorker: {
+					own: 0, 
+					cost: 1000, 
+                    initial: 1000,
+					generate: 100 },
+            },
+            upgrades: {
+            },
+            housing: {
+            },
+            // Stats
+            stats: {
+                totalClicks: 0,
+                totalMoneyEarned: 0,
+                timePlayed: 0,
+            },
+            // Settings
+            settings: {
+                volume: 0.5,
+                notifications: true,
+            },
+            version: "0.0.3",
+        };
+
+        // Initialize game
+        document.addEventListener('DOMContentLoaded', () => {
+            if (loadGame()) {
+                console.log("Loaded existing save");
+                updateUI();
+            } else {
+                console.log("No save found, starting new game");
+            }
+			setupUpgrades(); // Initialize upgrades system
+            setupHousing(); // Initialize housing system
+			updateLastSavedDisplay();
+            
+            // Set first section as active by default
+            document.querySelector('.collapsible-section').classList.add('active');
+        });
+
+        // Collapsible section functionality
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.classList.toggle('active');
+            
+            // Rotate chevron icon
+            const chevronDown = section.querySelector('.fa-chevron-down');
+            chevronDown.classList.toggle('rotated');
+        } 
+		window.addEventListener('beforeunload', saveGame);
+    </script>
+</body>
+</html>

@@ -1,0 +1,468 @@
+/* Base Styles */
+:root {
+  --primary-color: #2c3e50;
+  --secondary-color: #34495e;
+  --accent-color: #3498db;
+  --text-color: #ecf0f1;
+  --success-color: #2ecc71;
+  --warning-color: #f39c12;
+  --danger-color: #e74c3c;
+  --worker-card-bg: #3d566e;
+  --upgrade-card-bg: #4e6d8c;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #1a2b3c;
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  min-height: 100vh;
+}
+
+/* Main Content Styles */
+.main-content {
+  padding: 20px;
+  background-color: var(--primary-color);
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.game-header h1 {
+  margin: 0;
+  color: var(--accent-color);
+  font-size: 2.2rem;
+}
+
+.quick-stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.cash-display {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--success-color);
+}
+
+.happiness-display {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.stats-display {
+  color: #bdc3c7;
+  font-size: 0.9rem;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+  margin-bottom: 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--secondary-color);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+}
+
+.section-header {
+  padding: 15px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.section-header:hover {
+  background-color: rgba(0,0,0,0.3);
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding: 0 20px;
+}
+
+.collapsible-section.active .section-content {
+  max-height: 1000px; /* Adjust based on content */
+  padding: 20px;
+}
+
+.fa-chevron-down {
+  transition: transform 0.2s;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+/* Worker Cards */
+.worker-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--worker-card-bg);
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+.worker-info h3 {
+  margin: 0 0 5px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.worker-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #bdc3c7;
+}
+
+.hire-button {
+  background-color: var(--success-color);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-button {
+  background-color: orange;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hire-button:hover {
+  background-color: #27ad60;
+}
+
+/* Sidebar Styles */
+.game-sidebar {
+  background-color: var(--primary-color);
+  padding: 20px;
+  border-left: 1px solid rgba(255,255,255,0.1);
+  overflow-y: auto;
+}
+
+.sidebar-section {
+  margin-bottom: 25px;
+}
+
+.sidebar-section h3 {
+  color: var(--accent-color);
+  margin-top: 0;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #3d566e;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+.stat-name {
+  color: #bdc3c7;
+}
+
+.stat-value {
+  font-weight: bold;
+  color: #f1c40f;
+}
+
+/* Save Buttons */
+.save-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.save-button, .load-button, 
+.export-button, .import-button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s;
+}
+
+.save-button { background-color: var(--success-color); color: white; }
+.load-button { background-color: var(--accent-color); color: white; }
+.export-button { background-color: var(--warning-color); color: white; }
+.import-button { background-color: #9b59b6; color: white; }
+
+.save-button:hover { background-color: #27ae60; }
+.load-button:hover { background-color: #2980b9; }
+.export-button:hover { background-color: #e67e22; }
+.import-button:hover { background-color: #8e44ad; }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .game-container {
+      grid-template-columns: 1fr;
+  }
+  
+  .game-sidebar {
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+  }
+}
+
+/* Upgrades System */
+.upgrades-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.upgrade-card {
+  background: linear-gradient(135deg, #4e6d8c 0%, #3d566e 100%);
+  border-radius: 8px;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.upgrade-card.purchased {
+  border-left-color: #2ecc71;
+  opacity: 0.8;
+}
+
+.upgrade-card.unavailable {
+  opacity: 0.6;
+  border-left-color: #7f8c8d;
+}
+
+.upgrade-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.upgrade-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin: 0;
+}
+
+.upgrade-price {
+  background-color: #2c3e50;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.upgrade-description {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-bottom: 12px;
+}
+
+.upgrade-button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+.upgrade-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.upgrade-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.upgrade-button.purchased {
+  background-color: #2ecc71;
+}
+/* Reset Button Styles */
+.danger-zone {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e74c3c33;
+}
+
+.reset-button {
+  width: 100%;
+  padding: 8px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reset-button:hover {
+  background-color: #c0392b;
+}
+
+#reset-confirmation {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #2c3e50;
+  border-radius: 4px;
+  text-align: center;
+}
+
+#reset-confirmation p {
+  margin: 0 0 10px 0;
+  font-size: 0.9rem;
+}
+
+.confirm-reset {
+  background-color: #e74c3c;
+  margin-right: 5px;
+}
+
+.cancel-reset {
+  background-color: #7f8c8d;
+}
+
+.confirm-reset, .cancel-reset {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.confirm-reset:hover {
+  background-color: #c0392b;
+}
+
+.cancel-reset:hover {
+  background-color: #95a5a6;
+}
+
+
+/* housing System */
+.housing-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.housing-card {
+  background: linear-gradient(135deg, #4e6d8c 0%, #3d566e 100%);
+  border-radius: 8px;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.housing-card.purchased {
+  border-left-color: #2ecc71;
+  opacity: 0.8;
+}
+
+.housing-card.unavailable {
+  opacity: 0.6;
+  border-left-color: #7f8c8d;
+}
+
+.housing-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.housing-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin: 0;
+}
+
+.housing-price {
+  background-color: #2c3e50;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.housing-description {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-bottom: 12px;
+}
+
+.housing-button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+.housing-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.housing-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.housing-button.purchased {
+  background-color: #2ecc71;
+}

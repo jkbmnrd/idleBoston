@@ -7,7 +7,10 @@ function gameLoop() {
     game.stats.timePlayed += deltaTime;
 
     updatePassiveIncome(deltaTime);
+    checkAchievements();
+    updateSidebar();
     updateUI();
+
     if (game.stats.timePlayed % 10 === 0) autoSave(); // Save every 10 sec
 }
 

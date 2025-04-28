@@ -4,7 +4,7 @@ function hustle() {
         var decHappiness = game.money.max - hustleIncome;
         game.money.USD += hustleIncome;
         game.stats.totalClicks ++;
-        game.stats.totalMoneyEarned += hustleIncome;
+        game.stats.totalMoneyEarned += (hustleIncome * game.money.achievementMultClick);
         game.resources.happiness -= decHappiness;
         updateUI()
     }

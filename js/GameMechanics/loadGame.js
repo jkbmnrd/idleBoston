@@ -16,20 +16,55 @@ function loadGame() {
             // Add version-specific migrations here if needed
         }
         
-        // Carefully merge loaded data
-        game = {
-            ...game, // Default structure
+        // Create a temporary merged game state
+        const loadedGame = {
+            ...game, // Default structure with all functions
             ...parsed, // Saved values
-            // Preserve critical new features that might not exist in old saves
+            // Special handling for nested objects:
+            money: {
+                ...game.money,
+                ...(parsed.money || {})
+            },
+            workers: {
+                ...game.workers,
+                ...(parsed.workers || {})
+            },
             settings: {
                 ...game.settings,
                 ...(parsed.settings || {})
+            },
+            stats: {
+                ...game.stats,
+                ...(parsed.stats || {})
+            },
+            // Preserve achievement functions while keeping unlocked status
+            achievements: {
+                ...game.achievements, // This keeps the original functions
+                unlocked: {
+                    ...(parsed.achievements?.unlocked || {})
+                }
             }
         };
         
+        // Restore achievement functions for each achievement
+        Object.keys(loadedGame.achievements.list).forEach(key => {
+            if (game.achievements.list[key]) {
+                loadedGame.achievements.list[key] = {
+                    ...(parsed.achievements?.list?.[key] || {}), // Saved data
+                    condition: game.achievements.list[key].condition, // Original function
+                    effect: game.achievements.list[key].effect // Original function
+                };
+            }
+        });
+        
+        // Finally assign to the global game object
+        game = loadedGame;
+        
         // Update UI elements
         updateLastSavedDisplay();
+        updateUI(); // Refresh everything
         
+        console.log("Game loaded successfully");
         return true;
     } catch (e) {
         console.error("Load failed:", e);

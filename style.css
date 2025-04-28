@@ -103,7 +103,6 @@ body {
 .section-content {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease-out;
   padding: 0 20px;
 }
 
@@ -465,4 +464,89 @@ body {
 
 .housing-button.purchased {
   background-color: #2ecc71;
+}
+
+/* Achievements */
+.achievements-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+  padding: 10px;
+}
+
+.achievement-card {
+  border: 1px solid #444;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  background-color: #2a2a2a;
+  transition: all 0.3s ease;
+}
+
+.achievement-card.unlocked {
+  border-left: 5px solid gold;
+  background-color: #333;
+}
+
+.achievement-card.locked {
+  opacity: 0.7;
+  border-left: 5px solid #555;
+}
+
+.achievement-icon {
+  font-size: 2em;
+  margin-right: 15px;
+  color: gold;
+}
+
+.achievement-card.locked .achievement-icon {
+  color: #555;
+}
+
+.achievement-info h3 {
+  margin: 0 0 5px 0;
+  color: gold;
+}
+
+.achievement-card.locked h3 {
+  color: #aaa;
+}
+
+.achievement-reward {
+  color: #8bc34a;
+  font-style: italic;
+  margin: 5px 0 0 0;
+}
+
+.achievement-progress {
+  color: #aaa;
+  font-style: italic;
+  margin: 5px 0 0 0;
+}
+
+/* Notifications */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  color: gold;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 1000;
+  animation: slideIn 0.5s forwards;
+}
+
+.notification.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

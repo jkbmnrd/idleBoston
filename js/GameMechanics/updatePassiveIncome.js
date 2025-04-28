@@ -3,7 +3,7 @@ function updatePassiveIncome(deltaTime) {
     const deltaTimeSafe = Number(deltaTime) || 0; // Ensure deltaTime is a number
   
     // Calculate income
-    const income = (game.workers.beggars.own * game.workers.beggars.generate * deltaTimeSafe) + (game.workers.officeDrone.own * game.workers.officeDrone.generate * deltaTimeSafe) + (game.workers.factoryWorker.own * game.workers.factoryWorker.generate * deltaTimeSafe);
+    const income = (game.money.achievementMultPassive * (game.workers.beggars.own * game.workers.beggars.generate * deltaTimeSafe) + (game.workers.officeDrone.own * game.workers.officeDrone.generate * deltaTimeSafe) + (game.workers.factoryWorker.own * game.workers.factoryWorker.generate * deltaTimeSafe));
     game.money.income = income * 10;
 
     // Calculate happiness
@@ -11,6 +11,7 @@ function updatePassiveIncome(deltaTime) {
 
     // Safely add to money (initialize if missing)
     game.money.USD = (game.money.USD || 0) + income;
+    game.stats.totalMoneyEarned = (game.stats.totalMoneyEarned + income);
 
     // Safely add to happiness
     if (game.resources.happiness <= (game.resources.happinessMax - happyIncome)) {

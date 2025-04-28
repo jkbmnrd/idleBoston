@@ -1,7 +1,7 @@
 function updateSidebar() {
   // Update currencies
   document.getElementById('stat-usd').textContent = "$" + game.money.USD.toFixed(2);
-  document.getElementById('stat-income').textContent = "$" + game.money.income.toFixed(2) + "/s";
+  document.getElementById('stat-income').textContent = "+$" + game.money.income.toFixed(2) + "/s";
   document.getElementById('stat-happiness').textContent = game.resources.happiness.toFixed(2);
   document.getElementById('stat-happy-max').textContent = game.resources.happinessMax;
   document.getElementById('stat-euro').textContent = "€" + game.money.Euro.toFixed(2);

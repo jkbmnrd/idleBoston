@@ -156,7 +156,7 @@ body {
 }
 
 .action-button {
-  background-color: orange;
+  background-color: var(--warning-color);
   border: none;
   padding: 8px 15px;
   border-radius: 4px;
@@ -549,4 +549,43 @@ body {
 @keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
+}
+
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.tab-button {
+  padding: 10px 15px;
+  background-color: var(--worker-card-bg);
+  border: 5px solid var(--main-bg);
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 5px;
+  border-radius: 5px 5px 0 0;
+  transition: background-color 0.3s;
+  color: var(--text-color)
+}
+
+.tab-button:hover {
+  background-color: #ddd;
+}
+
+.tab-button.active {
+  background-color: var(--main-color);
+  color: white;
+  border-left-color: #2ecc71;
+}
+
+.tab-content {
+  display: none;
+  animation: fadeEffect 0.5s;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }

@@ -55,7 +55,7 @@ function resetGame() {
 
             },
             housing: {
-                
+
             },
             // Stats
             stats: {
@@ -68,7 +68,7 @@ function resetGame() {
                 volume: 0.5,
                 notifications: true,
             },
-            version: "0.0.3",
+            version: "0.0.5",
             achievements: {
                 unlocked: {},
                 // Define your achievements here

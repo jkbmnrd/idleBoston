@@ -24,6 +24,22 @@
                     </span>
                 </div>
             </header>
+
+            <!-- Tab Navigation -->
+            <nav class="tab-navigation">
+                <button class="tab-button active" onclick="openTab('city-tab')">
+                    <i class="fas fa-city"></i> City
+                </button>
+                <button class="tab-button" onclick="openTab('overseas-tab')">
+                    <i class="fas fa-globe"></i> Overseas
+                </button>
+                <button class="tab-button" onclick="openTab('extra-tab')">
+                    <i class="fas fa-star"></i> Extra
+                </button>
+            </nav>
+
+            <!-- City Tab Content -->
+            <div id="city-tab" class="tab-content" style="display: block;">
             <!-- Earn Income -->
             <section class="collapsible-section" id="hustle-section">
                 <div class="section-header" onclick="toggleSection('hustle-section')">
@@ -111,6 +127,36 @@
 					</div>
 				</div>
             </section>
+            </div>
+
+            <!-- Overseas Tab Content -->
+            <div id="overseas-tab" class="tab-content" style="display: none;">
+                <section class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('overseas-market-section')">
+                        <h2><i class="fas fa-globe-europe"></i> Overseas Markets</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="section-content" id="overseas-market-section">
+                        <p>This is where you can trade with overseas markets.</p>
+                        <p>Coming soon!</p>
+                    </div>
+                </section>
+                
+                <section class="collapsible-section">
+                    <div class="section-header" onclick="toggleSection('currency-exchange-section')">
+                        <h2><i class="fas fa-exchange-alt"></i> Currency Exchange</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="section-content" id="currency-exchange-section">
+                        <p>Exchange USD for other currencies.</p>
+                        <p>Coming soon!</p>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- Extra Tab Content -->
+            <div id="extra-tab" class="tab-content" style="display: none;">
+
             <!-- Achievements -->
             <section class="collapsible-section" id="achievements-section">
                 <div class="section-header" onclick="toggleSection('achievements-section')">
@@ -293,10 +339,9 @@
             },
             // Settings
             settings: {
-                volume: 0.5,
                 notifications: true,
             },
-            version: "0.0.3",
+            version: "0.0.5",
             achievements: {
                 unlocked: {},
                 // Define your achievements here
@@ -437,6 +482,26 @@
             const chevronDown = section.querySelector('.fa-chevron-down');
             chevronDown.classList.toggle('rotated');
         } 
+
+                // Tab functionality
+                function openTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+            
+            // Remove active class from all tab buttons
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Show the selected tab content and mark its button as active
+            document.getElementById(tabId).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
 		window.addEventListener('beforeunload', saveGame);
     </script>
 </body>

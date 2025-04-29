@@ -79,19 +79,3 @@ function updateAchievementsUI() {
         header.innerHTML = `<i class="fas fa-trophy"></i> Achievements (${unlockedCount}/${totalCount})`;
     }
 }
-
-function showNotification(message) {
-    // Create a simple notification (you can enhance this later)
-    const notification = document.createElement('div');
-    notification.className = 'notification';
-    notification.innerHTML = `<i class="fas fa-trophy"></i> ${message}`;
-    document.body.appendChild(notification);
-    
-    // Remove after 3 seconds
-    setTimeout(() => {
-        notification.classList.add('fade-out');
-        setTimeout(() => notification.remove(), 500);
-    }, 3000);
-}
-
-

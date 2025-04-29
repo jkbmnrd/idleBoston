@@ -28,13 +28,13 @@
             <!-- Tab Navigation -->
             <nav class="tab-navigation">
                 <button class="tab-button active" onclick="openTab('city-tab')">
-                    <i class="fas fa-city"></i> City
+                    <i class="fas fa-city"></i> Boston
                 </button>
                 <button class="tab-button" onclick="openTab('overseas-tab')">
-                    <i class="fas fa-globe"></i> Overseas
+                    <i class="fas fa-globe"></i> Europe
                 </button>
                 <button class="tab-button" onclick="openTab('extra-tab')">
-                    <i class="fas fa-star"></i> Extra
+                    <i class="fas fa-star"></i> Achievements & More!
                 </button>
             </nav>
 
@@ -176,7 +176,16 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <div class="section-content">
-                    <h3><span id="game-version">Current Version: v0.0.4</span></h3>
+                    <h3><span id="game-version">Current Version: v0.0.6</span></h3>
+                    <p> v0.0.6 Changelog:</p>
+                    <ul> 
+                        <li> Many small visual features - notifications, offline progression notifiactions, etc.</li>
+                        <li> Bug fixes from v0.0.5 and v0.0.4</li>
+                    </ul>
+                    <p> v0.0.5 Changelog:</p>
+                    <ul> 
+                        <li>Added tabs along the top for further sorting of features!</li>
+                    </ul>
                     <p> v0.0.4 Changelog:</p>
                     <ul> 
                         <li>Added ACHIEVEMENTS! Earn achievements to increase passive income multiplier, earn valuable worker upgrades, and click multipliers. </li>
@@ -267,42 +276,52 @@
     </div>
 
     <!-- Scripts-->
-    <script src="js/GameMechanics/gameLoop.js" defer></script>
-    <script src="js/GameMechanics/updateUI.js" defer></script>
-    <script src="js/GameMechanics/formatNum.js" defer></script>
-    <script src="js/GameMechanics/updatePassiveIncome.js" defer></script>
-    <script src="js/GameMechanics/autoSave.js" defer></script>
-    <script src="js/GameMechanics/updateSidebar.js" defer></script>
-    <script src="js/GameMechanics/saveGame.js"></script>
-    <script src="js/GameMechanics/loadGame.js" defer></script>
-    <script src="js/GameMechanics/exportSave.js" defer></script>
-    <script src="js/GameMechanics/importSave.js" defer></script>
-    <script src="js/GameMechanics/validateSave.js" defer></script>
-    <script src="js/GameMechanics/updateLastSavedDisplay.js" defer></script>
-    <script src="js/hustle.js" defer></script>
-    <script src="js/cheat.js" defer></script>
-    <script src="js/Workers/hireBeggar.js" defer></script>
-    <script src="js/Workers/hireOffice.js" defer></script>
-    <script src="js/Workers/hireFactory.js" defer></script>
-	<script src="js/Upgrades/upgradesSystem.js" defer></script>
-	<script src="js/GameMechanics/resetGame.js" defer></script>
-    <script src="js/Upgrades/housingSystem.js" defer></script>
-    <script src="js/Upgrades/achievmentsSystem.js" defer></script>
+    <!-- Core Mechanics Folder-->
+    <script src="js/CoreMechanics/gameLoop.js" defer></script>
+    <script src="js/CoreMechanics/updateUI.js" defer></script>
+    <script src="js/CoreMechanics/formatNum.js" defer></script>
+    <script src="js/CoreMechanics/updatePassiveIncome.js" defer></script>
+    <script src="js/CoreMechanics/autoSave.js" defer></script>
+    <script src="js/CoreMechanics/updateSidebar.js" defer></script>
+    <script src="js/CoreMechanics/saveGame.js"></script>
+    <script src="js/CoreMechanics/loadGame.js" defer></script>
+    <script src="js/CoreMechanics/exportSave.js" defer></script>
+    <script src="js/CoreMechanics/importSave.js" defer></script>
+    <script src="js/CoreMechanics/validateSave.js" defer></script>
+    <script src="js/CoreMechanics/updateLastSavedDisplay.js" defer></script>
+    <script src="js/CoreMechanics/hustle.js" defer></script>
+    <script src="js/CoreMechanics/cheat.js" defer></script>
+	<script src="js/CoreMechanics/resetGame.js" defer></script>
+    <script src="js/CoreMechanics/notifications.js" defer></script>
+    <!-- Workers System Folder-->
+    <script src="js/WorkersSystem/hireBeggar.js" defer></script>
+    <script src="js/WorkersSystem/hireOffice.js" defer></script>
+    <script src="js/WorkersSystem/hireFactory.js" defer></script>
+    <!-- Gameplay Systems Folder-->
+    <script src="js/GameplaySystems/upgradesSystem.js" defer></script>
+    <script src="js/GameplaySystems/housingSystem.js" defer></script>
+    <script src="js/GameplaySystems/achievmentsSystem.js" defer></script>
+    <!-- In-Page Scripting -->
     <script defer> //Main Page Required Content
         let game = {
             // Currency
             money:{
                 USD: 10, //primary currency
                 Euro: 0, //special currency
-                Bitcoin: 0, //prestige currency
+                Bitcoin: 0, //offline currency
+
+                //Hustle
+                achievementMultClick: 1.00,
                 max: 1, //Max "Hustle" income
                 min: 0, //Min "Hustle" income
+
+                //Passive Income
                 income: 0,
                 achievementMultPassive: 1.00, //Multiplier for achievements
-                achievementMultClick: 1.00,
             },
             // Resources
             resources: {
+                //Happiness
                 happiness: 10,
                 happinessMax: 10,
                 happinessGain: 0,
@@ -331,17 +350,26 @@
             housing: {
 
             },
+            bitcoin: {
+
+            },
             // Stats
             stats: {
                 totalClicks: 0,
                 totalMoneyEarned: 0,
+                totalBitcoinEarned: 0,
+                totalHustled: 0,
                 timePlayed: 0,
+                totalOfflineTime: 0,
             },
             // Settings
             settings: {
                 notifications: true,
             },
             version: "0.0.5",
+            lastSaved: {
+
+            },
             achievements: {
                 unlocked: {},
                 // Define your achievements here

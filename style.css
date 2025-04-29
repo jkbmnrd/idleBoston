@@ -7,13 +7,15 @@
   --success-color: #2ecc71;
   --warning-color: #f39c12;
   --danger-color: #e74c3c;
-  --worker-card-bg: #3d566e;
+  --card-bg: #3d566e;
   --upgrade-card-bg: #4e6d8c;
+  --happiness-color: #e74c3c;
+  --stats-color: #bdc3c7;
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #1a2b3c;
+  background-color: var(--primary-color);
   color: var(--text-color);
   margin: 0;
   padding: 0;
@@ -35,9 +37,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 2px solid var(--accent-color);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .game-header h1 {
@@ -61,11 +62,11 @@ body {
 .happiness-display {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #e74c3c;
+  color: var(--happiness-color);
 }
 
 .stats-display {
-  color: #bdc3c7;
+  color: var(--stats-color);
   font-size: 0.9rem;
 }
 
@@ -124,7 +125,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--worker-card-bg);
+  background-color: var(--card-bg);
   padding: 15px;
   border-radius: 6px;
   margin-bottom: 15px;
@@ -525,20 +526,61 @@ body {
 }
 
 /* Notifications */
-.notification {
+.notification-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  bottom: 20px;
+  left: 75%; /* Changed from 60% to 50% */
+  transform: translateX(-50%); /* This centers the container */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column-reverse; /* Newest notifications at the bottom */
+  align-items: center;
+  gap: 10px; /* Space between notifications */
+  max-height: 70vh;
+  width: auto;
+}
+
+/* Individual Notifications */
+.notification {
   background: rgba(0, 0, 0, 0.8);
   color: gold;
   padding: 15px;
   border-radius: 5px;
-  z-index: 1000;
-  animation: slideIn 0.5s forwards;
+  animation: slideUp 0.5s forwards, fadeOut 0.5s linear 4.5s forwards;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(100%);
+  opacity: 0;
+  margin-bottom: 0;
+  width: fit-content; /* Ensures notifications don't stretch full width */
 }
 
-.notification.fade-out {
+.fade-out {
   animation: fadeOut 0.5s forwards;
+}
+
+.notification .fa-trophy { color: #ffd700; }
+
+@keyframes slideUp {
+  from { 
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+  }
+  to { 
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-10%) translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-10%) translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideIn {
@@ -554,14 +596,14 @@ body {
 /* Tab Navigation */
 .tab-navigation {
   display: flex;
-  margin-bottom: 10px;
-  border-bottom: 1px solid var(--accent-color);
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--accent-color);
 }
 
 .tab-button {
   padding: 10px 15px;
   background-color: var(--worker-card-bg);
-  border: 5px solid var(--main-bg);
+  border: 0px solid var(--primary-color);
   cursor: pointer;
   font-size: 16px;
   margin-right: 5px;
@@ -571,21 +613,55 @@ body {
 }
 
 .tab-button:hover {
-  background-color: #ddd;
+  background-color: var(--primary-color);
 }
 
 .tab-button.active {
   background-color: var(--main-color);
   color: white;
-  border-left-color: #2ecc71;
+  border: 2px solid var(--secondary-color);
 }
 
 .tab-content {
   display: none;
-  animation: fadeEffect 0.5s;
 }
 
-@keyframes fadeEffect {
-  from {opacity: 0;}
-  to {opacity: 1;}
+.offline-popup {
+  position: fixed;
+  top: 20px;
+  left: 40%;
+  padding: 20px;
+  width: 300px;
+  background: var(--primary-color);
+  border-radius: 10px;
+  border: 2px solid var(--accent-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  animation: slideDown 0.5s forwards;
 }
+
+.offline-popup h3 {
+  margin: 0 0 10px 0;
+  color: var(--warning-color);
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.offline-popup p {
+  margin: 8px 0;
+  text-align: center;
+  font-size: 1.1em;
+  line-height: 1.4;
+}
+
+.offline-popup p:last-child {
+  font-weight: bold;
+  color: var(--success-color);
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 15px;
+}
+/* 
+
+
+*/

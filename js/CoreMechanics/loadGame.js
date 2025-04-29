@@ -10,11 +10,11 @@ function loadGame() {
             throw new Error("Invalid save structure");
         }
         
-        // Version migration example
-        if (parsed.version !== game.version) {
-            console.warn(`Save version ${parsed.version} differs from current ${game.version}`);
-            // Add version-specific migrations here if needed
-        }
+        // Get current time BEFORE loading the game state
+        const currentTime = Date.now();
+        const lastSaved = parsed.lastSaved || currentTime;
+        const offlineTime = Math.max(0, currentTime - lastSaved);
+        const offlineSeconds = Math.floor(offlineTime / 1000);
         
         // Create a temporary merged game state
         const loadedGame = {
@@ -43,32 +43,56 @@ function loadGame() {
                 unlocked: {
                     ...(parsed.achievements?.unlocked || {})
                 }
-            }
+            },
+            lastSaved: currentTime // Update the last saved time
         };
         
-        // Restore achievement functions for each achievement
+        // Restore achievement functions (your existing code)
         Object.keys(loadedGame.achievements.list).forEach(key => {
             if (game.achievements.list[key]) {
                 loadedGame.achievements.list[key] = {
-                    ...(parsed.achievements?.list?.[key] || {}), // Saved data
-                    condition: game.achievements.list[key].condition, // Original function
-                    effect: game.achievements.list[key].effect // Original function
+                    ...(parsed.achievements?.list?.[key] || {}),
+                    condition: game.achievements.list[key].condition,
+                    effect: game.achievements.list[key].effect
                 };
             }
         });
         
-        // Finally assign to the global game object
+        // Assign to global game object
         game = loadedGame;
         
-        // Update UI elements
-        updateLastSavedDisplay();
-        updateUI(); // Refresh everything
+        // Calculate and apply offline earnings AFTER loading the game state
+        if (offlineSeconds > 0) {
+            game.stats.totalOfflineTime += offlineSeconds;
+            
+            // Calculate resources earned offline using the LOADED game state
+            const earnedBitcoin = game.money.bitcoinIncome * offlineSeconds;
+            game.money.bitcoin += earnedBitcoin;
+            
+            // Show offline earnings
+            showOfflineEarnings(earnedBitcoin, offlineSeconds);
+        } else console.warn("No offline earnings to claim.");
         
-        console.log("Game loaded successfully");
+        // Update UI
+        updateLastSavedDisplay();
+        updateUI();
+        loadNotification("Game loaded successfully!");
+        
         return true;
     } catch (e) {
         console.error("Load failed:", e);
-        // Optional: Show error to player
         return false;
     }
+}
+
+function showOfflineEarnings(amount, timeAway) {
+    const popup = document.createElement('div');
+    popup.className = 'offline-popup';
+    popup.innerHTML = `
+        <h3>Welcome back!</h3>
+        <p>You were away for ${formatTime(timeAway)}</p>
+        <p>Earned: ${formatNumber(amount)} resources</p>
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => popup.remove(), 5000);
 }

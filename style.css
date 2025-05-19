@@ -37,8 +37,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  margin-bottom: -10px;
+  padding-bottom: 0px;
 }
 
 .game-header h1 {
@@ -84,8 +84,11 @@ body {
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  border-width: 0;
   align-items: center;
   background-color: rgba(0,0,0,0.2);
+  color: var(--text-color);
   transition: background-color 0.3s;
 }
 
@@ -175,7 +178,7 @@ body {
 .game-sidebar {
   background-color: var(--primary-color);
   padding: 20px;
-  border-left: 1px solid rgba(255,255,255,0.1);
+  border-left: 2px solid rgba(255,255,255,0.1);
   overflow-y: auto;
 }
 
@@ -188,7 +191,7 @@ body {
   margin-top: 0;
   margin-bottom: 15px;
   padding-bottom: 8px;
-  border-bottom: 1px solid #3d566e;
+  border-bottom: 2px solid #3d566e;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -254,7 +257,7 @@ body {
   }
 }
 
-/* Upgrades System */
+/* Upgrade Card System (Also used for: Housing, Bitcoin Upgrades, and Devices  */
 .upgrades-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -331,7 +334,7 @@ body {
 .danger-zone {
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid #e74c3c33;
+  border-top: 2px solid #e74c3c33;
 }
 
 .reset-button {
@@ -464,6 +467,154 @@ body {
 }
 
 .housing-button.purchased {
+  background-color: #2ecc71;
+}
+
+/* Bitcoin Upgrades System */
+.bitcoinUpgrades-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.bitcoinUpgrades-card {
+  background: linear-gradient(135deg, #4e6d8c 0%, #3d566e 100%);
+  border-radius: 8px;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.bitcoinUpgrades-card.purchased {
+  border-left-color: #2ecc71;
+  opacity: 0.8;
+}
+
+.bitcoinUpgrades-card.unavailable {
+  opacity: 0.6;
+  border-left-color: #7f8c8d;
+}
+
+.bitcoinUpgrades-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.bitcoinUpgrades-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin: 0;
+}
+
+.bitcoinUpgrades-price {
+  background-color: #2c3e50;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.bitcoinUpgrades-description {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-bottom: 12px;
+}
+
+.bitcoinUpgrades-button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+.bitcoinUpgrades-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.bitcoinUpgrades-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.bitcoinUpgrades-button.purchased {
+  background-color: #2ecc71;
+}
+
+/* housing System */
+.devices-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.devices-card {
+  background: linear-gradient(135deg, #4e6d8c 0%, #3d566e 100%);
+  border-radius: 8px;
+  padding: 15px;
+  border-left: 4px solid #3498db;
+  transition: all 0.3s ease;
+}
+
+.devices-card.purchased {
+  border-left-color: #2ecc71;
+  opacity: 0.8;
+}
+
+.devices-card.unavailable {
+  opacity: 0.6;
+  border-left-color: #7f8c8d;
+}
+
+.devices-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.devices-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #f1c40f;
+  margin: 0;
+}
+
+.devices-price {
+  background-color: #2c3e50;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.devices-description {
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-bottom: 12px;
+}
+
+.devices-button {
+  width: 100%;
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+}
+
+.devices-button:hover:not(:disabled) {
+  background-color: #2980b9;
+}
+
+.devices-button:disabled {
+  background-color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.devices-button.purchased {
   background-color: #2ecc71;
 }
 
@@ -626,6 +777,15 @@ body {
   display: none;
 }
 
+.tab-button {
+  display: none; /* Hidden by default */
+}
+
+.tab-button.active {
+  display: inline-block; /* Only show active tab button if unlocked */
+}
+
+/* Offline Popup */
 .offline-popup {
   position: fixed;
   top: 20px;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Idle Boston</title>
+    <title>The Idle City</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -13,7 +13,7 @@
         <main class="main-content">
             <!-- Header -->
             <header class="game-header">
-                <h1><i class="fas fa-landmark"></i> Idle City</h1>
+                <h1><p class="fas fa-landmark"></p> Idle Boston: Grow Your Empire! </h1>
                 <div class="quick-stats">
                     <span class="cash-display"><span id="stat-usd">0.00</span></span>
                         <i class="fas fa-money"></i> <span class="stats-display" id="stat-income">$0.00/s</span>
@@ -27,49 +27,93 @@
 
             <!-- Tab Navigation -->
             <nav class="tab-navigation">
-                <button class="tab-button active" onclick="openTab('city-tab')">
-                    <i class="fas fa-city"></i> Boston
+                <button class="tab-button" onclick="openTab('digital-tab')">
+                    <i class="fas fa-laptop"></i> The Internet
+                </button>
+                <button class="tab-button" onclick="openTab('city-tab')">
+                    <i class="fas fa-city"></i> The City
                 </button>
                 <button class="tab-button" onclick="openTab('overseas-tab')">
-                    <i class="fas fa-globe"></i> Europe
+                    <i class="fas fa-globe"></i> Global Expansion
                 </button>
                 <button class="tab-button" onclick="openTab('extra-tab')">
                     <i class="fas fa-star"></i> Achievements & More!
                 </button>
             </nav>
 
+            <!-- Digital Tab Content -->
+            <div id="digital-tab" class="tab-content">
+                <section class="collapsible-section" id="bitcoin-section">
+                    <button class="section-header" onclick="toggleSection('bitcoin-section')">
+                        <h2><i class="fas fa-laptop"></i> Dark Web Upgrades </h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="section-content">
+                        <p>Bitcoin is a digital currency that can be used to purchase special upgrades.</p>
+                        <div class="bitcoinUpgrades-container" id="bitcoinUpgrades-container">
+                            <!-- Bitcoin upgrades will be inserted here automatically -->
+                        </div>
+                    </div>
+                </section>
+                <section class="collapsible-section" id="sell-bitcoin-section">
+                    <button class="section-header" onclick="toggleSection('sell-bitcoin-section')">
+                        <h2><i class="fas fa-bitcoin-sign"></i> Sell Bitcoin </h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="section-content">
+                        <p>Bitcoin is a digital currency that can be sold en masse for USD.</p>
+                            <button class="action-button" onclick="sellBitcoin()">
+                                <i class="fas fa-money-bag"></i> Sell Bitcoin
+                            </button>
+                    </div>
+                </section>
+            </div>
+
             <!-- City Tab Content -->
-            <div id="city-tab" class="tab-content" style="display: block;">
-            <!-- Earn Income -->
+            <div id="city-tab" class="tab-content">
+
+            <!-- Collect Cans & Earn Money -->
             <section class="collapsible-section" id="hustle-section">
-                <div class="section-header" onclick="toggleSection('hustle-section')">
-                    <h2><i class="fas fa-hand-holding-usd"></i> Earn Income</h2>
+                <button class="section-header" onclick="toggleSection('hustle-section')">
+                    <h2><i class="fas fa-hand-holding-usd"></i> Manual Income </h2>
                     <i class="fas fa-chevron-down"></i>
-                </div>
+                </button>
                 <div class="section-content">
                     <button class="action-button" onclick="hustle()">
                         <i class="fas fa-fist-raised"></i> Hustle
                     </button>
                     <button class="action-button" onclick="cheat()">
-                        <i class="fas fa-star"></i> Cheat
+                        <i class="fas fa-star"></i> Cheat - Oops!
                     </button>
-                    <p class="section-description"> Walk up to people on the street and peddle for cash. Some people give you money, some people will not.</p>
+                    <!-- ADD SECTION TUTORIAL LATER -->
+                    <p class="section-description"> Walk up to people on the street and beg for a few coins. Happiness will drop by the amount of money you recieve, be warned!</p>
+                    <p class="section-description"> Currently, this will earn you between $0.01 and $0.10 per click.</p>
+
+                    <button class="action-button" onclick="collectCans()">
+                        <i class="fas fa-hand"></i> Collect Cans
+                    </button>
+                    <button class="action-button" onclick="sellCans()">
+                        <i class="fas fa-dollar"></i> Sell All Cans and Bottles
+                    </button>
+                    <p class="section-description"> Collect cans to bring to the redemption center and earn money! </p>
+                    <p class="section-description"> Currently, this will earn you $0.05 per can and $0.15 per bottle. Happiness will drop by 0.5 per click.</p>
                 </div>
             </section>
+
             <!-- Workers -->
             <section class="collapsible-section" id="workers-section">
-                <div class="section-header" onclick="toggleSection('workers-section')">
+                <button class="section-header" onclick="toggleSection('workers-section')">
                     <h2><i class="fas fa-briefcase"></i> Workers</h2>
                     <i class="fas fa-chevron-down"></i>
-                </div>
+                </button>
                 <div class="section-content">
                     <div class="worker-card">
                         <div class="worker-info">
-                            <h3><i class="fas fa-hand"></i> Beggars</h3>
-                            <p>Beggars will hustle on street corners for you</p>
+                            <h3><i class="fas fa-hand"></i> Beggars </h3>
+                            <p> Beggars collect cans from alleyways and the streets. </p>
                             <div class="worker-stats">
                                 <span>Owned: <span id="Beggars">0</span></span>
-                                <span>Income: $<span id="BeggarsGenerating">0.25</span>/sec</span>
+                                <span>Collecting: <span id="BeggarsGenerating">0.25</span> Cans/sec</span>
                             </div>
                         </div>
                         <button class="hire-button" onclick="hireBeggar()">
@@ -82,7 +126,7 @@
                             <p>Work in downtown offices</p>
                             <div class="worker-stats">
                                 <span>Owned: <span id="OfficeDrones">0</span></span>
-                                <span>Income: $<span id="OfficeDronesGenerating">25.00</span>/sec</span>
+                                <span>Collecting: <span id="OfficeDronesGenerating">1.00</span> Cans/sec</span>
                             </div>
                         </div>
                         <button class="hire-button" onclick="hireOffice()">
@@ -106,10 +150,10 @@
             </section>
             <!-- Upgrades -->
 			<section class="collapsible-section" id="upgrades-section">
-				<div class="section-header" onclick="toggleSection('upgrades-section')">
-					<h2><i class="fas fa-level-up-alt"></i> Upgrades</h2>
+				<button class="section-header" onclick="toggleSection('upgrades-section')">
+					<h2><i class="fas fa-up-long"></i> Upgrades</h2>
 					<i class="fas fa-chevron-down"></i>
-				</div>
+                </button>
 				<div class="section-content">
 					<div class="upgrades-container" id="upgrades-container">
 						<!-- Upgrades will be inserted here automatically -->
@@ -117,25 +161,37 @@
 				</div>
 			</section>
             <section class="collapsible-section" id="housing-section">
-				<div class="section-header" onclick="toggleSection('housing-section')">
+				<button class="section-header" onclick="toggleSection('housing-section')">
 					<h2><i class="fas fa-house"></i> Housing</h2>
 					<i class="fas fa-chevron-down"></i>
-				</div>
+				</button>
 				<div class="section-content">
 					<div class="housing-container" id="housing-container">
 						<!-- Houses will be inserted here automatically -->
 					</div>
 				</div>
             </section>
+            <section class="collapsible-section" id="devices-section">
+                <button class="section-header" onclick="toggleSection('devices-section')">
+                    <h2><i class="fas fa-laptop-code"></i> Devices </h2>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="section-content">
+                    <p>Devices are used to generate Bitcoin. Buy new ones to produce Bitcoin faster while offline.</p>
+                    <div class="devices-container" id="devices-container">
+                        <!-- Devices available for purchase will be inserted here automatically -->
+                    </div>
+                </div>
+            </section>
             </div>
 
             <!-- Overseas Tab Content -->
-            <div id="overseas-tab" class="tab-content" style="display: none;">
+            <div id="overseas-tab" class="tab-content">
                 <section class="collapsible-section">
-                    <div class="section-header" onclick="toggleSection('overseas-market-section')">
+                    <button class="section-header" onclick="toggleSection('overseas-market-section')">
                         <h2><i class="fas fa-globe-europe"></i> Overseas Markets</h2>
                         <i class="fas fa-chevron-down"></i>
-                    </div>
+                    </button>
                     <div class="section-content" id="overseas-market-section">
                         <p>This is where you can trade with overseas markets.</p>
                         <p>Coming soon!</p>
@@ -143,10 +199,10 @@
                 </section>
                 
                 <section class="collapsible-section">
-                    <div class="section-header" onclick="toggleSection('currency-exchange-section')">
+                    <button class="section-header" onclick="toggleSection('currency-exchange-section')">
                         <h2><i class="fas fa-exchange-alt"></i> Currency Exchange</h2>
                         <i class="fas fa-chevron-down"></i>
-                    </div>
+                    </button>
                     <div class="section-content" id="currency-exchange-section">
                         <p>Exchange USD for other currencies.</p>
                         <p>Coming soon!</p>
@@ -155,79 +211,131 @@
             </div>
             
             <!-- Extra Tab Content -->
-            <div id="extra-tab" class="tab-content" style="display: none;">
+            <div id="extra-tab" class="tab-content">
 
-            <!-- Achievements -->
-            <section class="collapsible-section" id="achievements-section">
-                <div class="section-header" onclick="toggleSection('achievements-section')">
-                    <h2><i class="fas fa-trophy"></i> Achievements</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <div class="achievements-container" id="achievements-container">
-                        <!-- Achievements will be inserted here automatically -->
+                <!-- Achievements -->
+                <section class="collapsible-section" id="achievements-section">
+                    <button class="section-header" onclick="toggleSection('achievements-section')">
+                        <h2><i class="fas fa-trophy"></i> Achievements</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="section-content">
+                        <div class="achievements-container" id="achievements-container">
+                            <!-- Achievements will be inserted here automatically -->
+                        </div>
                     </div>
-                </div>
+                </section>
+                <!-- Footer -->
+                <section class="collapsible-section" id="version-section">
+                    <button class="section-header" onclick="toggleSection('version-section')">
+                        <h2><i class="fas fa-compass-drafting"></i>Changelog</h2>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="section-content">
+                        <h3><span id="game-version">Current Version: v0.0.8</span></h3>
+                        <p> v0.0.8 Changelog</p>
+                        <ul> 
+                            <li> HUGE UPDATE! Changed the core structure of the game; hustling is now an ineffective method of generating income.</li>
+                            <li> COLLECT CANS! You can collect 1 can per click of the collect cans button. Bottles can be collected too, with a higher value - these serve as a critical click.</li>
+                            <li> SELL CANS AND BOTTLES! Sell cans and bottles for money at the redemption center.</li>
+                            <li> REWORKED WORKERS! Workers now collect cans for you and can be upgraded individually to collect more, faster, and even bottles too!</li>
+                            <li> LOTS OF SIMPLIFICATION! Some of the spaghetti has gone from </li>
+                            <li> AND MANY BUGS FIXED! Bugs have been squashed and traps have been laid out. General formatting and other changes made too.</li>
+                        </ul>
+                        <p> v0.0.7 Changelog:</p>
+                        <ul> 
+                            <li> Added bitcoin. </li>
+                            <li> Added new digital tab which unlocks when you purchase your first phone (devices section). </li>
+                            <li> Added global expansion tab, which serves as a placeholder for future content.</li>
+                            <li> Added devices system which allow you to generate bitcoin which serves as an offline accural of currency </li>
+                            <li> Sell bitcoin for USD or save it for permanent upgrades. </li>
+                        </ul>
+                        <p> v0.0.6 Changelog:</p>
+                        <ul> 
+                            <li> Many small visual features - notifications, offline progression notifiactions, etc.</li>
+                            <li> Bug fixes from v0.0.5 and v0.0.4</li>
+                        </ul>
+                        <p> v0.0.5 Changelog:</p>
+                        <ul> 
+                            <li>Added tabs along the top for further sorting of features!</li>
+                        </ul>
+                        <p> v0.0.4 Changelog:</p>
+                        <ul> 
+                            <li>Added ACHIEVEMENTS! Earn achievements to increase passive income multiplier, earn valuable worker upgrades, and click multipliers. </li>
+                            <li>Added multiplier stats and incorporated them into updatePassiveIncome.js</li>
+                            <li>Updated gameLoop, saving/loading, resetting, and UI updating to function with achievements.</li>
+                            <li>Added time increasing and click increasing to cheat button.</li>
+                            <li>Bug fixes from v0.0.3 and beyond.</li>
+                        </ul>
+                        <p> v0.0.3 Changelog:</p>
+                        <ul> 
+                            <li>Changed manual earning income, now earns a random value between a min and max.</li>
+                            <li>Changed worker income to be dyanmic with future prestige upgrades.</li>
+                            <li>Changed worker cost function to scale slower.</li>
+                            <li>Added housing tab.</li>
+                            <li>Added happiness statistic.</li>
+                        </ul>
+                        <p> v0.0.2 Changelog:</p>
+                        <ul>
+                            <li>Added office drones and factory workers.</li>
+                            <li>Added new upgrades for workers.</li>
+                            <li>Added changelog.</li>
+                        </ul>
+                    </div>
             </section>
-            <!-- Footer -->
-            <section class="collapsible-section" id="version-section">
-                <div class="section-header" onclick="toggleSection('version-section')">
-                    <h2><i class="fas fa-compass-drafting"></i>Changelog</h2>
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-                <div class="section-content">
-                    <h3><span id="game-version">Current Version: v0.0.6</span></h3>
-                    <p> v0.0.6 Changelog:</p>
-                    <ul> 
-                        <li> Many small visual features - notifications, offline progression notifiactions, etc.</li>
-                        <li> Bug fixes from v0.0.5 and v0.0.4</li>
-                    </ul>
-                    <p> v0.0.5 Changelog:</p>
-                    <ul> 
-                        <li>Added tabs along the top for further sorting of features!</li>
-                    </ul>
-                    <p> v0.0.4 Changelog:</p>
-                    <ul> 
-                        <li>Added ACHIEVEMENTS! Earn achievements to increase passive income multiplier, earn valuable worker upgrades, and click multipliers. </li>
-                        <li>Added multiplier stats and incorporated them into updatePassiveIncome.js</li>
-                        <li>Updated gameLoop, saving/loading, resetting, and UI updating to function with achievements.</li>
-                        <li>Added time increasing and click increasing to cheat button.</li>
-                        <li>Bug fixes from v0.0.3 and beyond.</li>
-                    </ul>
-                    <p> v0.0.3 Changelog:</p>
-                    <ul> 
-                        <li>Changed manual earning income, now earns a random value between a min and max.</li>
-                        <li>Changed worker income to be dyanmic with future prestige upgrades.</li>
-                        <li>Changed worker cost function to scale slower.</li>
-                        <li>Added housing tab.</li>
-                        <li>Added happiness statistic.</li>
-                    </ul>
-                    <p> v0.0.2 Changelog:</p>
-                    <ul>
-                        <li>Added office drones and factory workers.</li>
-                        <li>Added new upgrades for workers.</li>
-                        <li>Added changelog.</li>
-                    </ul>
-                </div>
-            </section>
-
         </main>
 
         <!-- Sidebar with Stats and Save -->
         <aside class="game-sidebar">
-            <div class="sidebar-section">
+            <div class="sidebar-section"> <!-- Cans and Bottles // Inventory -->
+                <h3><i class="fas fa-chart-line"></i> Inventory</h3>
+                <div class="stat-item">
+                    <span class="stat-name">Inventory Space:</span>
+                    <span id="stat-inventory" class="stat-value">0 / 10</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Cans Collected:</span>
+                    <span id="stat-cans" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Bottles Found:</span>
+                    <span id="stat-bottles" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="sidebar-section"> <!-- Statistics -->
                 <h3><i class="fas fa-chart-line"></i> Stats</h3>
                 <div class="stat-item">
                     <span class="stat-name">Total Clicks:</span>
                     <span id="stat-totalClicks" class="stat-value">0</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-name">Total Hustled:</span>
+                    <span class="stat-name">Total Cans Collected:</span>
+                    <span id="stat-totalCans" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Bottles Found:</span>
+                    <span id="stat-totalBottles" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Earned:</span>
                     <span id="stat-totalEarned" class="stat-value">$0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Earned from Bottles / Cans:</span>
+                    <span id="stat-totalCanEarned" class="stat-value">$0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Earned from Hustling:</span>
+                    <span id="stat-totalHustleEarned" class="stat-value">$0.00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-name">Total Bitcoin Earned:</span>
+                    <span id="stat-totalBitcoinEarned" class="stat-value">₿0.000000</span>
                 </div>
             </div>
 
-            <div class="sidebar-section">
+            <div class="sidebar-section"> <!-- Currencies -->
                 <h3><i class="fas fa-coins"></i> Special Currencies</h3>
                 <div class="stat-item">
                     <span class="stat-name">Euro:</span>
@@ -239,7 +347,7 @@
                 </div>
             </div>
 
-            <div class="sidebar-section">
+            <div class="sidebar-section"> <!-- File Management -->
                 <h3><i class="fas fa-database"></i> Save Game</h3>
                 <div class="save-actions">
                     <button class="save-button" onclick="saveGame()">
@@ -277,22 +385,29 @@
 
     <!-- Scripts-->
     <!-- Core Mechanics Folder-->
-    <script src="js/CoreMechanics/gameLoop.js" defer></script>
-    <script src="js/CoreMechanics/updateUI.js" defer></script>
-    <script src="js/CoreMechanics/formatNum.js" defer></script>
-    <script src="js/CoreMechanics/updatePassiveIncome.js" defer></script>
-    <script src="js/CoreMechanics/autoSave.js" defer></script>
-    <script src="js/CoreMechanics/updateSidebar.js" defer></script>
-    <script src="js/CoreMechanics/saveGame.js"></script>
-    <script src="js/CoreMechanics/loadGame.js" defer></script>
-    <script src="js/CoreMechanics/exportSave.js" defer></script>
-    <script src="js/CoreMechanics/importSave.js" defer></script>
-    <script src="js/CoreMechanics/validateSave.js" defer></script>
-    <script src="js/CoreMechanics/updateLastSavedDisplay.js" defer></script>
-    <script src="js/CoreMechanics/hustle.js" defer></script>
-    <script src="js/CoreMechanics/cheat.js" defer></script>
-	<script src="js/CoreMechanics/resetGame.js" defer></script>
-    <script src="js/CoreMechanics/notifications.js" defer></script>
+    <script src="js/CoreMechanics/gameLoop.js" defer></script> 
+    <!-- UI Folder-->
+    <script src="js/CoreMechanics/UI/updateUI.js" defer></script>
+    <script src="js/CoreMechanics/UI/formatNum.js" defer></script>
+    <script src="js/CoreMechanics/UI/updatePassiveIncome.js" defer></script>
+    <script src="js/CoreMechanics/UI/updateLastSavedDisplay.js" defer></script>
+    <script src="js/CoreMechanics/UI/notifications.js" defer></script>
+    <script src="js/CoreMechanics/UI/visibilityConditions.js" defer></script>
+    <script src="js/CoreMechanics/UI/updateSidebar.js" defer></script>
+    <!-- Save Management Folder-->
+    <script src="js/CoreMechanics/FileManagement/autoSave.js" defer></script>
+    <script src="js/CoreMechanics/FileManagement/saveGame.js"></script>
+    <script src="js/CoreMechanics/FileManagement/loadGame.js" defer></script>
+    <script src="js/CoreMechanics/FileManagement/exportSave.js" defer></script>
+    <script src="js/CoreMechanics/FileManagement/importSave.js" defer></script>
+    <script src="js/CoreMechanics/FileManagement/validateSave.js" defer></script>
+	<script src="js/CoreMechanics/FileManagement/resetGame.js" defer></script>
+    <!-- Buttons Folder-->
+    <script src="js/CoreMechanics/Buttons/hustle.js" defer></script>
+    <script src="js/CoreMechanics/Buttons/collectCans.js" defer></script>
+    <script src="js/CoreMechanics/Buttons/sellCans.js" defer></script>
+    <script src="js/CoreMechanics/Buttons/cheat.js" defer></script>
+    <script src="js/CoreMechanics/Buttons/sellBitcoin.js" defer></script>
     <!-- Workers System Folder-->
     <script src="js/WorkersSystem/hireBeggar.js" defer></script>
     <script src="js/WorkersSystem/hireOffice.js" defer></script>
@@ -301,105 +416,127 @@
     <script src="js/GameplaySystems/upgradesSystem.js" defer></script>
     <script src="js/GameplaySystems/housingSystem.js" defer></script>
     <script src="js/GameplaySystems/achievmentsSystem.js" defer></script>
+    <script src="js/GameplaySystems/bitcoinSystem.js" defer></script>
+    <script src="js/GameplaySystems/devicesSystem.js" defer></script>
     <!-- In-Page Scripting -->
-    <script defer> //Main Page Required Content
+    <script defer> // Main Page Required Content
         let game = {
-            // Currency
+            // Income
             money:{
-                USD: 10, //primary currency
-                Euro: 0, //special currency
-                Bitcoin: 0, //offline currency
+                // Currency
+                USD: 10, // primary currency
+                euro: 0, // special currency => currently unused
+                bitcoin: 0, // offline currency => earned while online too!
 
                 //Hustle
                 achievementMultClick: 1.00,
-                max: 1, //Max "Hustle" income
-                min: 0, //Min "Hustle" income
+                max: 0.10, // Max "Hustle" income
+                min: 0.01, // Min "Hustle" income
 
                 //Passive Income
-                income: 0,
-                achievementMultPassive: 1.00, //Multiplier for achievements
+                income: 0, // dollars generated per second while online only
+                bitcoinIncome: 0, // Bitcoin generated per second
+                achievementMultPassive: 1.00, // Multiplier from achievements on passive income => currently unused 
             },
             // Resources
             resources: {
-                //Happiness
-                happiness: 10,
-                happinessMax: 10,
-                happinessGain: 0,
+                // Happiness
+                happiness: 10, // current happiness
+                happinessMax: 10, // current max happiness => upgradeable
+                happinessGain: 0.001, // happiness gain per second => upgradeable
+
+                // Can Collection
+                cans: 0, // current number of cans
+                bottles: 0, // current number of bottles
+                bagSize: 10, // Max number of cans and bottles you can carry
+                canValue: 0.05, // Value of each can
+                bottleValue: 0.15, // Value of each bottle
+                bottleChance: 0.05, // Chance to find a bottle instead of a can => 0.05 is 5%
+                canHappiness: 0.5, // Happiness lost per can manually collected 
             },
-            // Workers
+            // Workers System Information
             workers: {
-                beggars: { 
-                    own: 0, 
-                    cost: 10, 
-                    initial: 10,
-                    generate: 0.25 },
+                beggars: { // name of worker
+                    own: 0, // number of workers owned
+                    cap: 10, // max number of this worker type
+                    cost: 10, // current cost of worker
+                    scale: 1.8, // cost scaling factor of worker
+                    initial: 10, // starting cost of worker
+                    generate: 0.25, // number of cans collected per second
+                    license: 0 }, // cost of license to purchase this worker
                 officeDrone: { 
 					own: 0, 
+                    cap: 10,
 					cost: 100, 
+                    scale: 1.8,
                     initial: 100,
-					generate: 25 },
+					generate: 2,
+                    license: 100 },
                 factoryWorker: {
-					own: 0, 
+                    own: 0, 
+                    cap: 10,
 					cost: 1000, 
+                    scale: 1.8,
                     initial: 1000,
-					generate: 100 },
+					generate: 5,
+                    license: 1000 },
             },
+            // Upgrades
             upgrades: {
-
+                // placeholder => upgradesSystem.js hosts these.
             },
+            // Housing Choices
             housing: {
-
+                // placeholder => housingSystem.js hosts these.
             },
-            bitcoin: {
-
+            // Devices
+            devices: {
+                // placeholder => devicesSystem.js hosts these.
+            },
+            // Bitcoin Upgrades
+            bitcoinUpgrades: {
+                // placholder upgrades you can buy with bitcoin instead of selling it => bitcoinSystem.js hosts these.
+            },
+            // Permanent Unlockables - Progression Features Unlocked
+            unlockables: {
+                ownPhone: false, // currently unused.
             },
             // Stats
             stats: {
-                totalClicks: 0,
-                totalMoneyEarned: 0,
-                totalBitcoinEarned: 0,
-                totalHustled: 0,
-                timePlayed: 0,
-                totalOfflineTime: 0,
+                totalClicks: 0, // total number of clicks on buttons only
+                totalMoneyEarned: 0, // total money earned from all sources
+                totalMoneyHustled: 0, // total money earned from hustling and busking
+                totalCanEarnings: 0, // total money earned from selling cans and bottles
+                totalCansCollected: 0, // total number of cans collected
+                totalBottlesCollected: 0, // total number of bottles collected
+                totalBitcoinEarned: 0, // total bitcoin earned - offline income
+                timePlayed: 0, // total time played in seconds
+                totalOfflineTime: 0, // total time while offline in seconds
             },
             // Settings
             settings: {
-                notifications: true,
+                notifications: true, // Enable or disable notifications
+                autoSave: true, // Enable or disable auto-saving
             },
-            version: "0.0.5",
+            version: "0.0.8", // Current version of the game
             lastSaved: {
-
+                // Placeholder for last saved time
             },
             achievements: {
-                unlocked: {},
-                // Define your achievements here
+                unlocked: {
+                    // Placeholder for unlocked achievements in game saves
+                },
+               // List of achievements
                 list: {
                     firstDollar: {
-                        name: "First Dollar",
-                        description: "We all have to start somewhere!",
-                        reward: "+1% to passive income",
-                        condition: (game) => game.stats.totalMoneyEarned >= 1,
-                        unlocked: false,
-                        effect: (game) => { game.money.achievementMultPassive += 0.01; },
+                        name: "First Dollar", // Title of Achievement - displayed
+                        description: "We all have to start somewhere!", // Description of Achievement - displayed
+                        reward: "+1% to passive income", // Reward - displayed
+                        condition: (game) => game.stats.totalMoneyEarned >= 1, // Unlock condition: (where the variable is located) => stat to check >= value to check for
+                        unlocked: false, // Unlocked status - displayed technically
+                        effect: (game) => { game.money.achievementMultPassive += 0.01; }, // Reward for completing
                     },
-                    tenBeggars: {
-                        name: "Beggar Army",
-                        description: "Hire 10 Beggars",
-                        reward: "Beggars earn 100% more",
-                        condition: (game) => game.workers.beggars.own >= 10,
-                        unlocked: false,
-                        effect: (game) => { game.workers.beggars.generate *= 2; },
-                    },
-                    hundredDrones: {
-                        name: "Corporate Takeover",
-                        description: "Hire 10 Office Drones",
-                        reward: "Office Drones earn 25% more",
-                        condition: (game) => game.workers.officeDrone.own >= 10,
-                        unlocked: false,
-                        effect: (game) => { 
-                            game.workers.officeDrone.generate *= 1.25; 
-                        },
-                    },
+
                     maxHappiness: {
                         name: "First House!",
                         description: "Buy your first 'home'... if you want to call it that.",
@@ -408,6 +545,7 @@
                         unlocked: false,
                         effect: (game) => { game.money.achievementMultPassive *= 1.02; },
                     },
+
                     firstHundred: {
                         name: "First Hundred",
                         description: "Making some real progress now!",
@@ -415,24 +553,6 @@
                         condition: (game) => game.stats.totalMoneyEarned >= 100,
                         unlocked: false,
                         effect: (game) => { game.money.achievementMultPassive += 0.02; },
-                    },
-
-                    firstThousand: {
-                        name: "First Thousand",
-                        description: "Now we're talking!",
-                        reward: "+3% to passive income",
-                        condition: (game) => game.stats.totalMoneyEarned >= 1000,
-                        unlocked: false,
-                        effect: (game) => { game.money.achievementMultPassive += 0.03; },
-                    },
-
-                    firstMillion: {
-                        name: "First Million",
-                        description: "Welcome to the big leagues!",
-                        reward: "+5% to passive income",
-                        condition: (game) => game.stats.totalMoneyEarned >= 1000000,
-                        unlocked: false,
-                        effect: (game) => { game.money.achievementMultPassive += 0.05; },
                     },
 
                     firstClick: {
@@ -453,15 +573,6 @@
                         effect: (game) => { game.money.achievementMultClick += 0.02; },
                     },
 
-                    thousandClicks: {
-                        name: "Thousand Clicks",
-                        description: "Your finger must be tired!",
-                        reward: "+3% to click value",
-                        condition: (game) => game.stats.totalClicks >= 1000,
-                        unlocked: false,
-                        effect: (game) => { game.money.achievementMultClick += 0.03; },
-                    },
-
                     idleMaster: {
                         name: "Idle Master",
                         description: "Letting the money roll in!",
@@ -471,14 +582,6 @@
                         effect: (game) => { game.money.achievementMultPassive += 0.02; },
                     },
 
-                    patiencePays: {
-                        name: "Patience Pays",
-                        description: "Waiting for the big bucks!",
-                        reward: "+3% to passive income",
-                        condition: (game) => game.stats.timePlayed >= 86400, // 1 day
-                        unlocked: false,
-                        effect: (game) => { game.money.achievementMultPassive += 0.03; },
-                    },
                 },
             },
         };
@@ -487,18 +590,20 @@
         document.addEventListener('DOMContentLoaded', () => {
             if (loadGame()) {
                 console.log("Loaded existing save");
-                updateUI();
             } else {
                 console.log("No save found, starting new game");
             }
-			setupUpgrades(); // Initialize upgrades system
-            setupHousing(); // Initialize housing system
-            setupAchievements(); // Initialize achievments system
-			updateLastSavedDisplay();
-            gameLoop();
             
-            // Set first section as active by default
-            document.querySelector('.collapsible-section').classList.add('active');
+            setupUpgrades();
+            setupHousing();
+            setupAchievements();
+            setupBitcoinUpgrades();
+            setupDevices();
+            updateLastSavedDisplay();
+            
+            // Initialize UI visibility before game loop
+            initializeUIState();
+            gameLoop();
         });
 
         // Collapsible section functionality
@@ -511,23 +616,23 @@
             chevronDown.classList.toggle('rotated');
         } 
 
-                // Tab functionality
-                function openTab(tabId) {
+        function openTab(tabId) {
             // Hide all tab contents
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].style.display = 'none';
-            }
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
             
-            // Remove active class from all tab buttons
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
-            }
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
             
-            // Show the selected tab content and mark its button as active
-            document.getElementById(tabId).style.display = 'block';
-            event.currentTarget.classList.add('active');
+            // Show the selected tab
+            const tabToOpen = document.getElementById(tabId);
+            if (tabToOpen) {
+                tabToOpen.style.display = 'block';
+                tabToOpen.classList.add('active');
+            }
         }
 
 		window.addEventListener('beforeunload', saveGame);

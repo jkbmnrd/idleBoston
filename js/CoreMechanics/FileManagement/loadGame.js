@@ -25,6 +25,10 @@ function loadGame() {
                 ...game.money,
                 ...(parsed.money || {})
             },
+            resources: {
+                ...game.resources,
+                ...(parsed.resources || {})
+            },
             workers: {
                 ...game.workers,
                 ...(parsed.workers || {})
@@ -47,7 +51,7 @@ function loadGame() {
             lastSaved: currentTime // Update the last saved time
         };
         
-        // Restore achievement functions (your existing code)
+        // Restore achievement functions
         Object.keys(loadedGame.achievements.list).forEach(key => {
             if (game.achievements.list[key]) {
                 loadedGame.achievements.list[key] = {
@@ -68,15 +72,16 @@ function loadGame() {
             // Calculate resources earned offline using the LOADED game state
             const earnedBitcoin = game.money.bitcoinIncome * offlineSeconds;
             game.money.bitcoin += earnedBitcoin;
+            game.stats.totalBitcoinEarned += earnedBitcoin;
             
             // Show offline earnings
             showOfflineEarnings(earnedBitcoin, offlineSeconds);
-        } else console.warn("No offline earnings to claim.");
+        } else {
+            console.warn("No offline earnings to claim.");
+        }
         
-        // Update UI
-        updateLastSavedDisplay();
-        updateUI();
-        loadNotification("Game loaded successfully!");
+        // Initialize UI systems that depend on loaded data
+        initializeUIAfterLoad();
         
         return true;
     } catch (e) {
@@ -91,8 +96,31 @@ function showOfflineEarnings(amount, timeAway) {
     popup.innerHTML = `
         <h3>Welcome back!</h3>
         <p>You were away for ${formatTime(timeAway)}</p>
-        <p>Earned: ${formatNumber(amount)} resources</p>
+        <p>Earned: ${(amount.toFixed(9))} bitcoin</p>
     `;
     document.body.appendChild(popup);
     setTimeout(() => popup.remove(), 5000);
+}
+
+// New function to handle post-load UI initialization
+function initializeUIAfterLoad() {
+    // Update all UI components
+    updateLastSavedDisplay();
+    updateUI();
+    updateSidebar();
+    
+    // Handle tab restoration
+    const lastActiveTab = localStorage.getItem('lastActiveTab') || 'city-tab';
+    const tabButton = document.querySelector(`[onclick*="${lastActiveTab}"]`);
+    
+    if (tabButton && tabButton.style.display !== 'none') {
+        // Only switch if the tab is available
+        openTab(lastActiveTab);
+    } else {
+        // Fallback to city tab if preferred tab isn't available
+        openTab('city-tab');
+    }
+    
+    // Show load notification
+    loadNotification("Game loaded successfully!");
 }

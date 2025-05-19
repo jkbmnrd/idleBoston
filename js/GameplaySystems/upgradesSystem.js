@@ -1,82 +1,36 @@
-// Define all upgrades
-const upgradesData = {
-    beggarManager: {
-        id: "beggarManager",
-        name: "Hobo Manager",
-        description: "You find an experienced Beggar on a street corner and decide to hire her to teach your employees how to hustle. Each Beggar now earns +100% more income!",
-        basePrice: 50,
+const upgradesData = { // Defines all upgrades => first upgrade has comments for how to use.
+    firstPhone: { // should match the ID 
+        id: "firstPhone", // unique identifier for the upgrade
+        name: "'Buy' Your First Phone!", // name of upgrade => displayed
+        description: "The beginning of your journey. You find a phone on the ground and decide to keep it.",// description of upgrade => displayed
+        basePrice: 5, // cost of upgrade
         effect: () => {
-            // Double beggar income
-            game.workers.beggars.generate *= 2;
-            console.log("Beggar income doubled!");
+            createNotification("You got a phone! Go unlock it in the devices menu!"); // effect of upgrade
         },
-        unlocked: () => game.workers.beggars.own >= 1
+        unlocked: () => game.money.USD >= 12, // how to unlock the upgrade
     },
-    beggarSuperstar: {
-        id: "beggarSuperstar",
-        name: "Employee of the Month",
-        description: "One of your employees does a phenomenal job and you award them employee of the month. Morale is boosted, increasing income by 100%!",
-        basePrice: 100,
+    beggarManager: { // should match the ID
+        id: "beggarManager", // unique identifier for the upgrade
+        name: "Beggar Manager", // name of upgrade => displayed
+        description: "Hire an experience beggar to oversee the collection of cans. Increase can production of all beggars by 25%.", // description of upgrade => displayed
+        basePrice: 20, // cost of upgrade
         effect: () => {
-            // Double beggar income
-            game.workers.beggars.generate *= 2;
-            console.log("Beggar income doubled!");
+            game.workers.beggars.generate *= 1.25; // effect of upgrade
+            createNotification("Beggar income increased by 25%!"); // notification of what just happened
         },
-        unlocked: () => game.workers.beggars.own >= 1
+        unlocked: () => game.workers.beggars.own >= 1 // how to unlock the upgrade
     },
-    beggarKing: {
-        id: "beggarKing",
-        name: "Beggar King",
-        description: "One of your beggars hustles better than all others. You crown them the Beggar King, which inspires your beggar legion to produce +100% more cash!",
-        basePrice: 200,
+    bagSizeIncrease1: {
+        id: "bagSizeIncrease1",
+        name: "Small Bag",
+        description: "A beggar found a small bag on the ground. It can hold 5 more cans!",
+        basePrice: 25,
         effect: () => {
-            // Double beggar income
-            game.workers.beggars.generate *= 2;
-            console.log("Beggar income doubled!");
+            game.resources.bagSize += 5;
+            createNotification("Bag size incraesed by 5!");
         },
-        unlocked: () => game.workers.beggars.own >= 1
+        unlocked: () => game.workers.beggars.own >= 2
     },
-    officeTraining: {
-        id: "officeTraining",
-        name: "Office Training",
-        description: "You decide to hire an HR team to do training on your current staff. Each Office Drone's productivity is boosted by 50%",
-        basePrice: 2500,
-        effect: () => {
-            game.workers.officeDrone.generate *= 1.5;
-        },
-        unlocked: () => game.workers.officeDrone.own >= 1
-    },
-    streetPerforming: {
-        id: "streetPerforming",
-        name: "Street Performing",
-        description: "Entice more people to pay attention to your Beggars, earning you +100% more income from each.",
-        basePrice: 5000,
-        effect: () => {
-            game.workers.beggars.generate *= 1.5;
-        },
-        unlocked: () => game.workers.beggars.own >= 10
-    },
-    officeLunch: {
-        id: "officeLunch",
-        name: "Office Lunch",
-        description: "Boost worker productivity by providing free lunches for your employees! Each Office Drone now earns an additioninal $2.50 per second.",
-        basePrice: 15000,
-        effect: () => {
-            game.workers.officeDrone.generate += 2.5;
-        },
-        unlocked: () => game.workers.officeDrone.own >= 5
-    },
-    officePromotions: {
-        id: "officePromotions",
-        name: "Office Promotions",
-        description: "Your Office Drones are upgraded into Cubicle Connoisseurs. +400% productivity of each Office Drone!",
-        basePrice: 15000,
-        effect: () => {
-            game.workers.officeDrone.generate *= 4;
-        },
-        unlocked: () => game.workers.officeDrone.own >= 10
-    },
-    // Add more upgrades here
 };
 
 // Initialize upgrades in game state

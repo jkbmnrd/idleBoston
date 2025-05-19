@@ -3,10 +3,10 @@ const housingData = {
     noHouse: {
         id: "noHouse",
         name: "No House",
-        description: "You do not own a house. You sleep under an underpass and hope for the best. Effect: Happiness +0.05/s",
+        description: "You do not own a house. You sleep under an underpass and hope for the best. Effect: Happiness +0.01/s",
         basePrice: 0,
         effect: () => {
-            game.resources.happinessGain += 0.05;
+            game.resources.happinessGain += 0.01;
             game.resources.happinessMax += 0;
         },
         unlocked: () => game.workers.beggars.own >= 1
@@ -14,13 +14,35 @@ const housingData = {
     cardboardBox: {
         id: "cardboardBox",
         name: "Cardboard Box",
-        description: "Purchase a cardboard box from the store down the road. They notice you're homeless, so they upcharge you!",
+        description: "Purchase a cardboard box from the store down the road. They notice you're homeless, so they upcharge you! Effect: Happiness +0.01/s, Max Happiness +5",
         basePrice: 250,
         effect: () => {
-            game.resources.happinessGain += 0.15;
-            game.resources.happinessMax += 15;
+            game.resources.happinessGain += 0.01;
+            game.resources.happinessMax += 5;
         },
         unlocked: () => game.workers.beggars.own >= 10
+    },
+    trailerPark: {
+        id: "trailerPark",
+        name: "Room in a Trailer Park",
+        description: "You purchase a room in a trailer park. It's not much, but it's your new home. Effect: Happiness +0.02/s, Max Happiness +8",
+        basePrice: 650,
+        effect: () => {
+            game.resources.happinessGain += 0.02;
+            game.resources.happinessMax += 8;
+        },
+        unlocked: () => game.workers.beggars.own >= 20
+    },
+    studioApartment: {
+        id: "studioApartment",
+        name: "Studio Apartment",
+        description: "You purchase a studio apartment in the city. It's small, but it's yours! Effect: Happiness +0.05/s, Max Happiness +12",
+        basePrice: 250,
+        effect: () => {
+            game.resources.happinessGain += 0.04;
+            game.resources.happinessMax += 12;
+        },
+        unlocked: () => game.workers.officeDrone.own >= 1
     },
     // Add more houses here
 };

@@ -40,8 +40,6 @@ function checkAchievements() {
     }
 }
 
-
-
 function updateAchievementsUI() {
     const container = document.getElementById('achievements-container');
     container.innerHTML = '';
